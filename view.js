@@ -22,7 +22,7 @@ function onCoinBtnclickHandler(e) {
 
 async function createAllButtns() {
   await loadAllCoins()
-  model.coins.forEach(el => {
+  model.getAvailaibleCoins().forEach(el => {
     let ctrl = el
     renderAllCoins(ctrl)
   })
@@ -64,7 +64,7 @@ function shifterInputSetValueHandler(e) {
   }
 }
 
-function renderShifterIfInputFalse() { }
+function renderShifterIfInputFalse() {}
 
 function renderElTotalInputSetClassIfFalse() {
   ElTotalInput.classList.add('false')
@@ -131,11 +131,13 @@ function onNewShifterBtnClick() {
 }
 
 function renderShifter(ctrl, value, maximum, qty) {
-  console.log(ctrl);
-  console.log(value);
-  console.log(maximum);
-  console.log(qty);
+  console.log(ctrl)
+  console.log(value)
+  console.log(maximum)
+  console.log(qty)
+  console.log('ctrl :>> ', ctrl)
   const elShifter = document.querySelector(`.shifter[ctrl='${ctrl}']`)
+  console.log('elSHifter>>', elShifter)
   const elInputText = elShifter.querySelector('input[type=text]')
   const elRange = elShifter.querySelector('input[type=range]')
   const elsProgress = elShifter.querySelectorAll('progress')

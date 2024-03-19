@@ -30,6 +30,14 @@ const model = {
     },
   },
 
+  setAvailaibleCoins(availaibleCoins) {
+    this.availaibleCoins = availaibleCoins
+  },
+
+  getAvailaibleCoins() {
+    return this.availaibleCoins
+  },
+
   setTotal(total) {
     this.total = total
     for (const ctrl in this.coins) {
@@ -115,7 +123,8 @@ const model = {
   },
 
   calcCoinsQantity(ctrl) {
-    return this.coins[ctrl].qty = this.coins[ctrl].val / this.coins[ctrl].price || 0
+    return (this.coins[ctrl].qty =
+      this.coins[ctrl].val / this.coins[ctrl].price || 0)
   },
 
   setCoins(coins) {
@@ -126,7 +135,7 @@ const model = {
   },
   async loadAllCoinsAPI() {
     await loadCoinList()
-  }
+  },
 }
 
 // let result

@@ -13,5 +13,5 @@ async function loadPriceByCtrl(ctrl) {
 async function loadCoinList() {
   const resp = await fetch(`${API_URL}/blockchain/list?api_key=${API_KEY}`)
   const json = await resp.json()
-  model.setCoins(Object.keys(json.Data))
+  model.setAvailaibleCoins(Object.keys(json.Data))
 }

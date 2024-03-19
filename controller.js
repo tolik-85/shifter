@@ -29,13 +29,10 @@ async function loadAllCoins() {
 }
 
 function handleUpdate() {
+  console.log('getAddedCoins() :>> ', model.getAddedCoins())
   for (const key of model.getAddedCoins()) {
     renderShifter(
       key,
-      console.log(key),
-      console.log(model.getValByCtrl(key)),
-      console.log(model.getMaxByCtrl(key)),
-      console.log(model.calcCoinsQantity(key)),
       model.getValByCtrl(key),
       model.getMaxByCtrl(key),
       model.calcCoinsQantity(key)
