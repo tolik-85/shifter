@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="main">
+    <div class="top">
+      <div class="field_text"><label for="total_balance">Total USD</label><input type="text" name="input"
+          id="total_text" /></div>
+      <div class="field_button"><input type="button" value="Set USD" id="btn_set_total" /></div>
+      <hr />
+    </div>
+    <div class="bottom pave">
+      <div class="shifter" ctrl="btc">
+        <div class="cl-btn-4"></div>
+        <label for="edit-btc">USD to BTC</label>
+        <progress ctrl="btc" max="0" value="0"></progress>
+        <div class="row">
+          <button ctrl="btc" action="minus">&lt;</button>
+          <input type="text" ctrl="btc" name="edit-btc" id="edit-btc" />
+          <button ctrl="btc" action="plus">&gt;</button>
+        </div>
+        <progress ctrl="btc" max="0" value="0"></progress>
+        <input type="range" ctrl="btc" name="btc" id="" min="0" max="0" value="0" />
+        <div class="price">
+          <span ctrl="btc">0</span>
+        </div>
+      </div>
+      <div class="shifter" ctrl="eth">
+        <div class="cl-btn-4"></div><label for="edit-eth">USD to ETH</label><progress ctrl="eth" max="0"
+          value="0"></progress>
+        <div class="row"><button ctrl="eth" action="minus">&lt;
+          </button><input type="text" ctrl="eth" name="edit-eth" id="edit-eth" /><button ctrl="eth" action="plus">&gt;
+          </button></div><progress ctrl="eth" max="0" value="0"></progress><input type="range" ctrl="eth" name="eth"
+          id="" min="0" max="0" value="0" />
+        <div class="price">
+          <span ctrl="eth">0</span>
+        </div>
+      </div>
+      <div class="shifter" ctrl="xrp">
+        <div class="cl-btn-4"></div><label for="edit-xrp">USD to XRP</label><progress ctrl="xrp" max="0"
+          value="0"></progress>
+        <div class="row"><button ctrl="xrp" action="minus">&lt;
+          </button><input type="text" ctrl="xrp" name="edit-xrp" id="edit-xrp" /><button ctrl="xrp" action="plus">&gt;
+          </button></div><progress ctrl="xrp" max="0" value="0"></progress><input type="range" ctrl="xrp" name="xrp"
+          id="" min="0" max="0" value="0" />
+        <div class="price">
+          <span ctrl="xrp">0</span>
+        </div>
+      </div>
+      <div class="shifter" ctrl="doge">
+        <div class="cl-btn-4"></div>
+        <label for="edit-doge">USD to DOGE</label>
+        <progress ctrl="doge" max="0" value="0"></progress>
+        <div class="row"><button ctrl="doge" action="minus">&lt;
+          </button><input type="text" ctrl="doge" name="edit-doge" id="edit-doge" /><button ctrl="doge"
+            action="plus">&gt;
+          </button></div><progress ctrl="doge" max="0" value="0"></progress><input type="range" ctrl="doge" name="doge"
+          id="" min="0" max="0" value="0" />
+        <div class="price">
+          <span ctrl="doge">0</span>
+        </div>
+      </div>
+      <div class="addnew">
+        <label for="newshifter">Shifter Name</label>
+        <input type="text" id="newshifter">
+        <button class="new-shifter">Add new shifter</button>
+      </div>
+      <div class="coins"></div>
+    </div>
+    <div class="allcoins">
+      <button class="viewall">View All Coins</button>
+    </div>
+
+  </div>
+  <script src="api.js"></script>
+  <script src="model.js"></script>
+  <script src="controller.js"></script>
+  <script src="view.js"></script>
+</body>
