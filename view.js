@@ -8,15 +8,27 @@ const ElTotalInput = document.querySelector('#total_text')
 const ElCoins = document.querySelector('.coins')
 const shifterInputEls = document.querySelectorAll('.row>input[type=text]')
 const viewAllCoinsBtn = document.querySelector('.viewall')
+const elAllCoins = document.querySelector(".allcoins")
 
 viewAllCoinsBtn.addEventListener('click', onViewAllCoinsBtnHandler)
 
-function onViewAllCoinsBtnHandler() {
-  createAllButtns()
+
+function onOptionClickHandler(e) {
+  const ctrl = e.target.getAttribute('ctrl')
+  e.target.remove()
+  handleNewShifter(ctrl)
+}
+
+function onViewAllCoinsBtnHandler(e) {
+  // createAllButtns()
+  e.target.remove()
+  renderSelect()
+
 }
 
 function onCoinBtnclickHandler(e) {
   const ctrl = e.target.getAttribute('ctrl')
+  e.target.remove()
   handleNewShifter(ctrl)
 }
 
@@ -26,6 +38,26 @@ async function createAllButtns() {
     let ctrl = el
     renderAllCoins(ctrl)
   })
+}
+
+async function renderSelect() {
+  await loadAllCoins()
+  const select = document.createElement("select")
+  model.getAvailaibleCoins().forEach(el => {
+    let ctrl = el
+    const option = generateOption(ctrl)
+    option.addEventListener("click", onOptionClickHandler)
+    select.appendChild(option)
+  })
+  elAllCoins.appendChild(select)
+}
+
+function generateOption(ctrl) {
+  const option = document.createElement("option")
+  option.setAttribute('ctrl', ctrl)
+  option.innerHTML = `USD to ${ctrl}`
+  return option
+
 }
 
 function generateCoinBtn(ctrl) {
@@ -64,7 +96,7 @@ function shifterInputSetValueHandler(e) {
   }
 }
 
-function renderShifterIfInputFalse() {}
+function renderShifterIfInputFalse() { }
 
 function renderElTotalInputSetClassIfFalse() {
   ElTotalInput.classList.add('false')
@@ -131,13 +163,10 @@ function onNewShifterBtnClick() {
 }
 
 function renderShifter(ctrl, value, maximum, qty) {
-  console.log(ctrl)
-  console.log(value)
-  console.log(maximum)
-  console.log(qty)
-  console.log('ctrl :>> ', ctrl)
+
+
   const elShifter = document.querySelector(`.shifter[ctrl='${ctrl}']`)
-  console.log('elSHifter>>', elShifter)
+
   const elInputText = elShifter.querySelector('input[type=text]')
   const elRange = elShifter.querySelector('input[type=range]')
   const elsProgress = elShifter.querySelectorAll('progress')
