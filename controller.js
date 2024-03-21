@@ -29,7 +29,6 @@ async function loadAllCoins() {
 }
 
 function handleUpdate() {
-  // console.log('getAddedCoins() :>> ', model.getAddedCoins())
   for (const key of model.getAddedCoins()) {
     renderShifter(
       key,
@@ -41,25 +40,22 @@ function handleUpdate() {
 }
 
 function handleNewShifter(ctrl) {
-
   renderBottomPave(ctrl)
   model.addObj(ctrl)
   model.setValue(0, ctrl)
   priceHandler(ctrl)
   handleUpdate()
-  // console.log(model.coins[ctrl].price);
-
 }
 
-function handleCloseBtn(ctrl, shifter) {
-  const elSelect = document.querySelector("select")
-  shifter.remove()
+function handleCloseBtn(ctrl) {
   model.deleteObj(ctrl)
-  // renderAllCoins(ctrl)
+  handleUpdate()
+  renderBottomPaveRevome(ctrl)
+
+  const elSelect = document.querySelector("select")
   const option = generateOption(ctrl)
   option.addEventListener("click", onOptionClickHandler)
   elSelect.prepend(option)
-  handleUpdate()
 }
 
 function handleIncrementVal(ctrl) {

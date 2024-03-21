@@ -14,9 +14,10 @@ viewAllCoinsBtn.addEventListener('click', onViewAllCoinsBtnHandler)
 
 
 function onOptionClickHandler(e) {
-  const ctrl = e.target.getAttribute('ctrl')
-  e.target.remove()
+  const ctrl = e.target.value.toLowerCase()
+  e.target.querySelector(`[value="${ctrl}"]`).remove()
   handleNewShifter(ctrl)
+  console.log('clk');
 }
 
 function onViewAllCoinsBtnHandler(e) {
@@ -43,10 +44,9 @@ async function createAllButtns() {
 async function renderSelect() {
   await loadAllCoins()
   const select = document.createElement("select")
-  model.getAvailaibleCoins().forEach(el => {
-    let ctrl = el
+  select.addEventListener('change', onOptionClickHandler)
+  model.getAvailaibleCoins().forEach(ctrl => {
     const option = generateOption(ctrl)
-    option.addEventListener("click", onOptionClickHandler)
     select.appendChild(option)
   })
   elAllCoins.appendChild(select)
@@ -54,7 +54,7 @@ async function renderSelect() {
 
 function generateOption(ctrl) {
   const option = document.createElement("option")
-  option.setAttribute('ctrl', ctrl)
+  option.setAttribute('value', ctrl.toLowerCase())
   option.innerHTML = `USD to ${ctrl}`
   return option
 
@@ -96,8 +96,6 @@ function shifterInputSetValueHandler(e) {
   }
 }
 
-function renderShifterIfInputFalse() { }
-
 function renderElTotalInputSetClassIfFalse() {
   ElTotalInput.classList.add('false')
   ElTotalInput.classList.add('shake')
@@ -137,8 +135,7 @@ elButtonTotal.addEventListener('click', onClickButtonSetTotal)
 
 function onCloseBtnClickHandler(e) {
   const ctrl = e.target.parentNode.getAttribute('ctrl')
-  const shifter = e.target.parentNode
-  handleCloseBtn(ctrl, shifter)
+  handleCloseBtn(ctrl)
 }
 
 elsClosebtn.forEach(elCloseBtn => {
@@ -163,10 +160,7 @@ function onNewShifterBtnClick() {
 }
 
 function renderShifter(ctrl, value, maximum, qty) {
-
-
   const elShifter = document.querySelector(`.shifter[ctrl='${ctrl}']`)
-
   const elInputText = elShifter.querySelector('input[type=text]')
   const elRange = elShifter.querySelector('input[type=range]')
   const elsProgress = elShifter.querySelectorAll('progress')
@@ -238,8 +232,6 @@ function generateShifter(ctrl) {
   inputRange.setAttribute('value', 0)
   price.classList.add('price')
   span.setAttribute('ctrl', ctrl)
-  // span.innerHTML = model.getQtyByCtrl(ctrl)
-
   elShifter.appendChild(closeBtn)
   elShifter.appendChild(label)
   elShifter.appendChild(progress)
@@ -267,4 +259,9 @@ function renderBottomPave(ctrl) {
   const beforeEl = document.querySelector('.addnew')
   const newShifter = generateShifter(ctrl)
   parentCont.insertBefore(newShifter, beforeEl)
+}
+
+function renderBottomPaveRevome(ctrl) {
+  const shifter = document.querySelector(`.shifter[ctrl="${ctrl}"]`);
+  shifter.remove()
 }
