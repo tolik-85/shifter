@@ -30,6 +30,11 @@ const model = {
     },
   },
 
+  addObj(ctrl) {
+    this.coins[ctrl] = { val: 0, max: 0, price: 0, qty: 0 }
+    this.calcMax()
+  },
+
   setAvailaibleCoins(availaibleCoins) {
     this.availaibleCoins = availaibleCoins
   },
@@ -43,6 +48,14 @@ const model = {
     for (const ctrl in this.coins) {
       this.setMaxByCtrl(ctrl)
     }
+  },
+
+  setPrice(ctrl, price) {
+    this.coins[ctrl].price = price
+  },
+
+  setCoins(coins) {
+    this.coins = coins
   },
 
   setValue(val, ctrl) {
@@ -74,6 +87,10 @@ const model = {
     return Object.keys(this.coins)
   },
 
+  getPrice(ctrl) {
+    return this.coins[ctrl].price
+  },
+
   calcMax() {
     let sumValues = 0
 
@@ -96,11 +113,6 @@ const model = {
     return val
   },
 
-  addObj(ctrl) {
-    this.coins[ctrl] = { val: 0, max: 0, price: 0, qty: 0 }
-    this.calcMax()
-  },
-
   deleteObj(ctrl) {
     delete this.coins[ctrl]
     this.calcMax()
@@ -114,25 +126,15 @@ const model = {
     this.setValue(this.getValByCtrl(ctrl) - 1, ctrl)
   },
 
-  setPrice(ctrl, price) {
-    this.coins[ctrl].price = price
-  },
-
-  getPrice(ctrl) {
-    return this.coins[ctrl].price
-  },
-
   calcCoinsQantity(ctrl) {
     return (this.coins[ctrl].qty =
       this.coins[ctrl].val / this.coins[ctrl].price || 0)
   },
 
-  setCoins(coins) {
-    this.coins = coins
-  },
   async loadPrice(ctrl) {
     await loadPriceByCtrl(ctrl)
   },
+
   async loadAllCoinsAPI() {
     await loadCoinList()
   },
