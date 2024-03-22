@@ -4,12 +4,11 @@ function handleChangeValue(val, ctrl) {
 }
 
 function handleSetTotal(val) {
-  if (Number.isInteger(+val)) {
-    renderElTotalInputSetClassIfTrue()
+  if (Number.isInteger(+val) && +val > 0) {
     model.setTotal(+val)
     handleUpdate()
   } else {
-    renderElTotalInputSetClassIfFalse()
+    ElTotalInput.value = 0
   }
 }
 
@@ -21,11 +20,11 @@ function getPriceHandler() {
 }
 
 async function priceHandler(ctrl) {
-  await model.loadPrice(ctrl)
+  await model.updatePrice(ctrl)
 }
 
 async function loadAllCoins() {
-  await model.loadAllCoinsAPI()
+  await model.updateAllCoins()
 }
 
 function handleUpdate() {

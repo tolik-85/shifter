@@ -4,7 +4,7 @@ const elButtonNewShifter = document.querySelector('.new-shifter')
 const elsClosebtn = document.querySelectorAll('.cl-btn-4')
 const ElsButtonsPlus = document.querySelectorAll(`button[action="plus"]`)
 const ElsButtonsMinus = document.querySelectorAll(`button[action="minus"]`)
-const ElTotalInput = document.querySelector('#total_text')
+let ElTotalInput = document.querySelector('#total_text')
 const ElCoins = document.querySelector('.coins')
 const shifterInputEls = document.querySelectorAll('.row>input[type=text]')
 const viewAllCoinsBtn = document.querySelector('.viewall')
@@ -14,14 +14,15 @@ viewAllCoinsBtn.addEventListener('click', onViewAllCoinsBtnHandler)
 
 
 function onOptionClickHandler(e) {
-  const ctrl = e.target.value.toLowerCase()
+  const ctrl = e.target.value
+  console.log(ctrl);
+  console.log(e.target);
+  console.log(e.target.querySelector(`[value="${ctrl}"]`));
   e.target.querySelector(`[value="${ctrl}"]`).remove()
   handleNewShifter(ctrl)
-  console.log('clk');
 }
 
 function onViewAllCoinsBtnHandler(e) {
-  // createAllButtns()
   e.target.remove()
   renderSelect()
 
@@ -33,13 +34,6 @@ function onCoinBtnclickHandler(e) {
   handleNewShifter(ctrl)
 }
 
-async function createAllButtns() {
-  await loadAllCoins()
-  model.getAvailaibleCoins().forEach(el => {
-    let ctrl = el
-    renderAllCoins(ctrl)
-  })
-}
 
 async function renderSelect() {
   await loadAllCoins()
@@ -54,8 +48,8 @@ async function renderSelect() {
 
 function generateOption(ctrl) {
   const option = document.createElement("option")
-  option.setAttribute('value', ctrl.toLowerCase())
-  option.innerHTML = `USD to ${ctrl}`
+  option.setAttribute('value', ctrl)
+  option.innerHTML = `USD to ${ctrl.toUpperCase()}`
   return option
 
 }
@@ -69,10 +63,6 @@ function generateCoinBtn(ctrl) {
   return coinBtn
 }
 
-function renderAllCoins(ctrl) {
-  const coinBtn = generateCoinBtn(ctrl)
-  ElCoins.prepend(coinBtn)
-}
 
 shifterInputEls.forEach(el => {
   el.addEventListener('input', shifterInputSetValueHandler)
@@ -82,33 +72,11 @@ function shifterInputSetValueHandler(e) {
   const shifter = e.target.parentNode.parentNode
   const inputValue = e.target.value
 
-  if (!Number.isInteger(+inputValue)) {
-    shifter.style.setProperty('--clr-master', '#ff0000')
-    shifter.style.setProperty('--clr-slave', '#f53786')
-    shifter.classList.add('shake')
-    handleUpdate()
-    setTimeout(() => {
-      shifter.style.setProperty('--clr-master', '#00c3ff')
-      shifter.style.setProperty('--clr-slave', '#3dd2ff')
-      shifter.classList.remove('shake')
-      handleUpdate()
-    }, 1000)
+  if (inputValue > 0) {
+    inputValue = 0
   }
 }
 
-function renderElTotalInputSetClassIfFalse() {
-  ElTotalInput.classList.add('false')
-  ElTotalInput.classList.add('shake')
-
-  setTimeout(() => {
-    ElTotalInput.classList.remove('shake')
-  }, 1000)
-}
-
-function renderElTotalInputSetClassIfTrue() {
-  ElTotalInput.classList.remove('false')
-  ElTotalInput.classList.add('true')
-}
 
 ElsButtonsPlus.forEach(btnPlus => {
   btnPlus.addEventListener('click', onBtnPlusClickHandler)
