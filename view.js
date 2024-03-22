@@ -4,54 +4,41 @@ const elButtonNewShifter = document.querySelector('.new-shifter')
 const elsClosebtn = document.querySelectorAll('.cl-btn-4')
 const ElsButtonsPlus = document.querySelectorAll(`button[action="plus"]`)
 const ElsButtonsMinus = document.querySelectorAll(`button[action="minus"]`)
-let ElTotalInput = document.querySelector('#total_text')
+const ElTotalInput = document.querySelector('#total_text')
 const ElCoins = document.querySelector('.coins')
 const shifterInputEls = document.querySelectorAll('.row>input[type=text]')
 const viewAllCoinsBtn = document.querySelector('.viewall')
-const elAllCoins = document.querySelector(".allcoins")
+const elAllCoins = document.querySelector('.allcoins')
 
-viewAllCoinsBtn.addEventListener('click', onViewAllCoinsBtnHandler)
+viewAllCoinsBtn.addEventListener('click', onClickViewAllCoinsBtn)
 
-
-function onOptionClickHandler(e) {
+function onChangeSelect(e) {
   const ctrl = e.target.value
-  console.log(ctrl);
-  console.log(e.target);
-  console.log(e.target.querySelector(`[value="${ctrl}"]`));
   e.target.querySelector(`[value="${ctrl}"]`).remove()
   handleNewShifter(ctrl)
 }
 
-function onViewAllCoinsBtnHandler(e) {
+function onClickViewAllCoinsBtn(e) {
   e.target.remove()
   renderSelect()
-
 }
 
-function onCoinBtnclickHandler(e) {
-  const ctrl = e.target.getAttribute('ctrl')
-  e.target.remove()
-  handleNewShifter(ctrl)
-}
+const select = document.createElement('select')
+select.addEventListener('change', onChangeSelect)
+elAllCoins.appendChild(select)
 
-
-async function renderSelect() {
-  await loadAllCoins()
-  const select = document.createElement("select")
-  select.addEventListener('change', onOptionClickHandler)
-  model.getAvailaibleCoins().forEach(ctrl => {
-    const option = generateOption(ctrl)
-    select.appendChild(option)
+async function renderSelect(availaibleCoins) {
+  availaibleCoins.forEach(ctrl => {
+    const elOption = generateOption(ctrl)
+    select.appendChild(elOption)
   })
-  elAllCoins.appendChild(select)
 }
 
 function generateOption(ctrl) {
-  const option = document.createElement("option")
+  const option = document.createElement('option')
   option.setAttribute('value', ctrl)
   option.innerHTML = `USD to ${ctrl.toUpperCase()}`
   return option
-
 }
 
 function generateCoinBtn(ctrl) {
@@ -59,10 +46,8 @@ function generateCoinBtn(ctrl) {
   coinBtn.classList.add(`coin`)
   coinBtn.setAttribute('ctrl', ctrl)
   coinBtn.innerHTML = `USD to ${ctrl}`
-  coinBtn.addEventListener('click', onCoinBtnclickHandler)
   return coinBtn
 }
-
 
 shifterInputEls.forEach(el => {
   el.addEventListener('input', shifterInputSetValueHandler)
@@ -77,12 +62,11 @@ function shifterInputSetValueHandler(e) {
   }
 }
 
-
 ElsButtonsPlus.forEach(btnPlus => {
   btnPlus.addEventListener('click', onBtnPlusClickHandler)
 })
 ElsButtonsMinus.forEach(btnPlus => {
-  btnPlus.addEventListener('click', onBtnMinusClickHandler)
+  btnPlus.addEventListener('click', onClickBtnMinusHandler)
 })
 
 function onBtnPlusClickHandler(e) {
@@ -92,7 +76,7 @@ function onBtnPlusClickHandler(e) {
   handleUpdate()
 }
 
-function onBtnMinusClickHandler(e) {
+function onClickBtnMinusHandler(e) {
   const ctrl = e.target.getAttribute('ctrl')
   const val = e.target.parentNode.querySelector('input[type=text]').value
 
@@ -119,9 +103,9 @@ elShifters.forEach(elShifter => {
     .addEventListener('input', onChangeInput)
 })
 
-elButtonNewShifter.addEventListener('click', onNewShifterBtnClick)
+elButtonNewShifter.addEventListener('click', onClickNewShifterBtn)
 
-function onNewShifterBtnClick() {
+function onClickNewShifterBtn() {
   let ctrl = document.querySelector('.addnew').querySelector('input').value
   handleNewShifter(ctrl)
   document.querySelector('.addnew').querySelector('input').value = ''
@@ -153,7 +137,6 @@ function onChangeInput(e) {
 function onClickButtonSetTotal() {
   const val = document.querySelector('#total_text').value
   handleSetTotal(val)
-  getPriceHandler()
 }
 
 function generateShifter(ctrl) {
@@ -212,7 +195,7 @@ function generateShifter(ctrl) {
   elShifter.appendChild(inputRange)
   elShifter.appendChild(price)
 
-  buttonMinus.addEventListener('click', onBtnMinusClickHandler)
+  buttonMinus.addEventListener('click', onClickBtnMinusHandler)
   buttonPlus.addEventListener('click', onBtnPlusClickHandler)
   closeBtn.addEventListener('click', onCloseBtnClickHandler)
   inputText.addEventListener('input', onChangeInput)
@@ -230,6 +213,6 @@ function renderBottomPave(ctrl) {
 }
 
 function renderBottomPaveRevome(ctrl) {
-  const shifter = document.querySelector(`.shifter[ctrl="${ctrl}"]`);
+  const shifter = document.querySelector(`.shifter[ctrl="${ctrl}"]`)
   shifter.remove()
 }

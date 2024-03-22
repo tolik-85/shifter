@@ -40,16 +40,17 @@ const model = {
   },
 
   getAvailaibleCoins() {
-    this.availaibleCoins =
-      this.availaibleCoins.toString().toLowerCase().split(",")
+    this.availaibleCoins = this.availaibleCoins
+      .toString()
+      .toLowerCase()
+      .split(',')
     return this.availaibleCoins
   },
 
   setAvCoinsToLower() {
     this.availaibleCoins.forEach(el => {
       el.toLowerCase()
-
-    });
+    })
   },
 
   setTotal(total) {
@@ -57,6 +58,8 @@ const model = {
     for (const ctrl in this.coins) {
       this.setMaxByCtrl(ctrl)
     }
+    this.updateAllPrices()
+    this.updateAllCoins().then(() => handleSelectAvailaibleCoins())
   },
 
   setPrice(ctrl, price) {
@@ -146,6 +149,12 @@ const model = {
 
   async updateAllCoins() {
     await loadCoinList()
+  },
+
+  updateAllPrices() {
+    for (const key in this.coins) {
+      this.updatePrice(key)
+    }
   },
 }
 

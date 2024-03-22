@@ -12,21 +12,6 @@ function handleSetTotal(val) {
   }
 }
 
-function getPriceHandler() {
-  priceHandler('btc')
-  priceHandler('eth')
-  priceHandler('xrp')
-  priceHandler('doge')
-}
-
-async function priceHandler(ctrl) {
-  await model.updatePrice(ctrl)
-}
-
-async function loadAllCoins() {
-  await model.updateAllCoins()
-}
-
 function handleUpdate() {
   for (const key of model.getAddedCoins()) {
     renderShifter(
@@ -50,11 +35,7 @@ function handleCloseBtn(ctrl) {
   model.deleteObj(ctrl)
   handleUpdate()
   renderBottomPaveRevome(ctrl)
-
-  const elSelect = document.querySelector("select")
-  const option = generateOption(ctrl)
-  option.addEventListener("click", onOptionClickHandler)
-  elSelect.prepend(option)
+  renderSelect([ctrl])
 }
 
 function handleIncrementVal(ctrl) {
@@ -65,4 +46,9 @@ function handleIncrementVal(ctrl) {
 function handleDecrementVal(ctrl) {
   model.decrementVal(ctrl)
   handleUpdate()
+}
+
+function handleSelectAvailaibleCoins() {
+  const availaibleCoins = model.getAvailaibleCoins()
+  renderSelect(availaibleCoins)
 }
