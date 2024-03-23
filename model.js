@@ -30,9 +30,20 @@ const model = {
     },
   },
 
+  async beforeAddObj(ctrl) {
+    this.addObj(ctrl)
+    await this.updatePrice(ctrl)
+    if (this.getPrice(ctrl)) {
+      return true
+    } else {
+      this.deleteObj(ctrl)
+    }
+  },
+
   addObj(ctrl) {
     this.coins[ctrl] = { val: 0, max: 0, price: 0, qty: 0 }
     this.calcMax()
+    this.setValue(0, ctrl)
   },
 
   setAvailaibleCoins(availaibleCoins) {

@@ -23,16 +23,18 @@ function handleUpdate() {
   }
 }
 
-function handleNewShifter(ctrl) {
-  renderBottomPave(ctrl)
-  model.addObj(ctrl)
-  model.setValue(0, ctrl)
-  model.updatePrice(ctrl)
-  handleUpdate()
+async function handleNewShifter(ctrl) {
+  let isCorrect = await model.beforeAddObj(ctrl)
+  if (isCorrect) {
+    renderBottomPave(ctrl)
+    handleUpdate()
+  } else {
+    // renderBadPupup/Hint/Warnig
+  }
 }
 
 function handleCloseBtn(ctrl) {
-  console.log(ctrl);
+  console.log(ctrl)
   model.deleteObj(ctrl)
   handleUpdate()
   renderBottomPaveRevome(ctrl)
@@ -52,4 +54,3 @@ function handleDataListAvailaibleCoins() {
   const availaibleCoins = model.getAvailaibleCoins()
   renderDataList(availaibleCoins)
 }
-
