@@ -7,7 +7,8 @@ async function loadPriceByCtrl(ctrl) {
     `${API_URL}/price?fsym=${ctrl}&tsyms=USD&api_key=${API_KEY}`
   )
   const json = await resp.json()
-  model.setPrice(`${ctrl}`, json.USD)
+  return json.USD
+  // model.setPrice(ctrl, json.USD)
 }
 
 async function loadCoinList() {

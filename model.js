@@ -155,7 +155,8 @@ const model = {
   },
 
   async updatePrice(ctrl) {
-    await loadPriceByCtrl(ctrl)
+    const price = await loadPriceByCtrl(ctrl)
+    this.setPrice(ctrl, price)
   },
 
   async updateAllCoins() {
