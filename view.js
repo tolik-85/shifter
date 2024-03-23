@@ -2,37 +2,21 @@ const elButtonTotal = document.querySelector('#btn_set_total')
 const elShifters = document.querySelectorAll('.shifter')
 const elButtonNewShifter = document.querySelector('.new-shifter')
 const elsClosebtn = document.querySelectorAll('.cl-btn-4')
-const ElsButtonsPlus = document.querySelectorAll(`button[action="plus"]`)
-const ElsButtonsMinus = document.querySelectorAll(`button[action="minus"]`)
-const ElTotalInput = document.querySelector('#total_text')
-const ElCoins = document.querySelector('.coins')
+const elsButtonsPlus = document.querySelectorAll(`button[action="plus"]`)
+const elsButtonsMinus = document.querySelectorAll(`button[action="minus"]`)
+const elTotalInput = document.querySelector('#total_text')
+const elCoins = document.querySelector('.coins')
 const shifterInputEls = document.querySelectorAll('.row>input[type=text]')
-const viewAllCoinsBtn = document.querySelector('.viewall')
-const elAllCoins = document.querySelector('.allcoins')
+const elDataList = document.querySelector("#newshifter")
 
-viewAllCoinsBtn.addEventListener('click', onClickViewAllCoinsBtn)
 
-function onChangeSelect(e) {
-  const ctrl = e.target.value
-  e.target.querySelector(`[value="${ctrl}"]`).remove()
-  handleNewShifter(ctrl)
-}
-
-function onClickViewAllCoinsBtn(e) {
-  e.target.remove()
-  renderSelect()
-}
-
-const select = document.createElement('select')
-select.addEventListener('change', onChangeSelect)
-elAllCoins.appendChild(select)
-
-async function renderSelect(availaibleCoins) {
+function renderDataList(availaibleCoins) {
   availaibleCoins.forEach(ctrl => {
     const elOption = generateOption(ctrl)
-    select.appendChild(elOption)
+    elDataList.appendChild(elOption)
   })
 }
+
 
 function generateOption(ctrl) {
   const option = document.createElement('option')
@@ -41,31 +25,23 @@ function generateOption(ctrl) {
   return option
 }
 
-function generateCoinBtn(ctrl) {
-  const coinBtn = document.createElement('button')
-  coinBtn.classList.add(`coin`)
-  coinBtn.setAttribute('ctrl', ctrl)
-  coinBtn.innerHTML = `USD to ${ctrl}`
-  return coinBtn
-}
 
 shifterInputEls.forEach(el => {
   el.addEventListener('input', shifterInputSetValueHandler)
 })
 
 function shifterInputSetValueHandler(e) {
-  const shifter = e.target.parentNode.parentNode
-  const inputValue = e.target.value
-
+  let inputValue = e.target.value
+  console.log(inputValue);
   if (inputValue > 0) {
     inputValue = 0
   }
 }
 
-ElsButtonsPlus.forEach(btnPlus => {
+elsButtonsPlus.forEach(btnPlus => {
   btnPlus.addEventListener('click', onBtnPlusClickHandler)
 })
-ElsButtonsMinus.forEach(btnPlus => {
+elsButtonsMinus.forEach(btnPlus => {
   btnPlus.addEventListener('click', onClickBtnMinusHandler)
 })
 
@@ -106,9 +82,11 @@ elShifters.forEach(elShifter => {
 elButtonNewShifter.addEventListener('click', onClickNewShifterBtn)
 
 function onClickNewShifterBtn() {
-  let ctrl = document.querySelector('.addnew').querySelector('input').value
+  let ctrl = document.querySelector("#newshifter-add").value
+  console.log(document.querySelector(`option[value='${ctrl}']`));
+  console.log(document.querySelector("#newshifter-add"));
   handleNewShifter(ctrl)
-  document.querySelector('.addnew').querySelector('input').value = ''
+  document.querySelector("#newshifter-add").value = ""
 }
 
 function renderShifter(ctrl, value, maximum, qty) {

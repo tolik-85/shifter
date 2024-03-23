@@ -27,15 +27,15 @@ function handleNewShifter(ctrl) {
   renderBottomPave(ctrl)
   model.addObj(ctrl)
   model.setValue(0, ctrl)
-  priceHandler(ctrl)
+  model.updatePrice(ctrl)
   handleUpdate()
 }
 
 function handleCloseBtn(ctrl) {
+  console.log(ctrl);
   model.deleteObj(ctrl)
   handleUpdate()
   renderBottomPaveRevome(ctrl)
-  renderSelect([ctrl])
 }
 
 function handleIncrementVal(ctrl) {
@@ -48,7 +48,8 @@ function handleDecrementVal(ctrl) {
   handleUpdate()
 }
 
-function handleSelectAvailaibleCoins() {
+function handleDataListAvailaibleCoins() {
   const availaibleCoins = model.getAvailaibleCoins()
-  renderSelect(availaibleCoins)
+  renderDataList(availaibleCoins)
 }
+

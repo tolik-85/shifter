@@ -47,11 +47,11 @@ const model = {
     return this.availaibleCoins
   },
 
-  setAvCoinsToLower() {
-    this.availaibleCoins.forEach(el => {
-      el.toLowerCase()
-    })
-  },
+  // setAvCoinsToLower() {
+  //   this.availaibleCoins.forEach(el => {
+  //     el.toLowerCase()
+  //   })
+  // },handleDataListAvailaibleCoins()
 
   setTotal(total) {
     this.total = total
@@ -59,7 +59,7 @@ const model = {
       this.setMaxByCtrl(ctrl)
     }
     this.updateAllPrices()
-    this.updateAllCoins().then(() => handleSelectAvailaibleCoins())
+    this.updateAllCoins().then(() => handleDataListAvailaibleCoins())
   },
 
   setPrice(ctrl, price) {
