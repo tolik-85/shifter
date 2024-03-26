@@ -58,12 +58,6 @@ const model = {
     return this.availaibleCoins
   },
 
-  // setAvCoinsToLower() {
-  //   this.availaibleCoins.forEach(el => {
-  //     el.toLowerCase()
-  //   })
-  // },handleDataListAvailaibleCoins()
-
   setTotal(total) {
     this.total = total
     for (const ctrl in this.coins) {
@@ -155,12 +149,13 @@ const model = {
   },
 
   async updatePrice(ctrl) {
-    const price = await loadPriceByCtrl(ctrl)
+    const price = await api.loadPriceByCtrl(ctrl)
     this.setPrice(ctrl, price)
   },
 
   async updateAllCoins() {
-    await loadCoinList()
+    const coinList = await api.loadCoinList()
+    this.setAvailaibleCoins(coinList)
   },
 
   updateAllPrices() {
