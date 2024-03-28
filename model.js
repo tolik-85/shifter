@@ -63,6 +63,7 @@ const model = {
     for (const ctrl in this.coins) {
       this.setMaxByCtrl(ctrl)
     }
+    this.setValueToZeroForAllCoins()
     this.updateAllPrices()
     this.updateAllCoins().then(() => handleDataListAvailaibleCoins())
   },
@@ -78,6 +79,11 @@ const model = {
   setValue(val, ctrl) {
     this.coins[ctrl].val = this.checkVal(val, ctrl)
     this.calcMax()
+  },
+  setValueToZeroForAllCoins() {
+    for (const ctrl in this.coins) {
+      this.setValue(0, ctrl)
+    }
   },
 
   setMaxByCtrl(ctrl) {
