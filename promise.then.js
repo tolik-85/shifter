@@ -30,3 +30,20 @@ result
 
 // let result = await afn()
 // console.log(result)
+
+// elsButtonMinusPlus.forEach(elem =>
+//   elem.addEventListener('click', onButtonMinusPlus)
+// )
+
+// elsClosebtn.forEach(elCloseBtn => {
+//   elCloseBtn.addEventListener('click', onCloseBtnClick)
+// })
+
+// elShifters.forEach(elShifter => {
+//   elShifter
+//     .querySelector("input[type='range']")
+//     .addEventListener('input', onInputShifterInput)
+//   elShifter
+//     .querySelector("input[type='text']")
+//     .addEventListener('input', onInputShifterInput)
+// })
