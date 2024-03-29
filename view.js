@@ -1,9 +1,12 @@
+const view = {}
+
 document.addEventListener('DOMContentLoaded', onLoaded)
 
 function onLoaded() {
   renderButtonTotal()
   renderSetTotalInput('')
   renderAddNewShifter()
+  handleDataListAvailaibleCoins()
 }
 
 function onInputSetTotalInput() {
@@ -11,20 +14,9 @@ function onInputSetTotalInput() {
   handleInputSetTotalInput(elTotalInput.value)
 }
 
-function renderButtonTotal() {
-  const elButtonTotal = document.querySelector('#btn_set_total')
-  elButtonTotal.addEventListener('click', onClickButtonSetTotal)
-}
-
-function renderSetTotalInput(val) {
-  const elTotalInput = document.querySelector('#total_text')
-  elTotalInput.value = val
-  elTotalInput.addEventListener('input', onInputSetTotalInput)
-  elTotalInput.addEventListener('keyup', function (e) {
-    if (e.key === 'Enter') {
-      onClickButtonSetTotal()
-    }
-  })
+function onClickButtonSetTotal() {
+  const val = document.querySelector('#total_text').value
+  handleButtonSetTotal(val)
 }
 
 function onButtonMinusPlus(e) {
@@ -49,23 +41,30 @@ function onClickNewShifterBtn() {
   handleNewShifter(ctrl)
 }
 
-function onClickButtonSetTotal() {
-  const val = document.querySelector('#total_text').value
-  handleButtonSetTotal(val)
+function renderButtonTotal() {
+  const elButtonTotal = document.querySelector('#btn_set_total')
+  elButtonTotal.addEventListener('click', onClickButtonSetTotal)
+}
+
+function renderSetTotalInput(val) {
+  const elTotalInput = document.querySelector('#total_text')
+  elTotalInput.value = val
+  elTotalInput.addEventListener('input', onInputSetTotalInput)
+  elTotalInput.addEventListener('keyup', function (e) {
+    if (e.key === 'Enter') {
+      onClickButtonSetTotal()
+    }
+  })
 }
 
 function renderShifter(ctrl, value, maximum, qty) {
   const elShifter = document.querySelector(`.shifter[ctrl='${ctrl}']`)
   const elsProgress = elShifter.querySelectorAll('progress')
-  const elCoinsQty = elShifter.querySelector(`span[ctrl='${ctrl}']`)
+  const elCoinsQty = elShifter.querySelector(`span`)
   const elInputText = elShifter.querySelector('input[type=text]')
   const elRange = elShifter.querySelector('input[type=range]')
-  const buttonPlus = elShifter.querySelector(
-    `button[ctrl='${ctrl}'][action="plus"]`
-  )
-  const buttonMinus = elShifter.querySelector(
-    `button[ctrl='${ctrl}'][action="minus"]`
-  )
+  const buttonPlus = elShifter.querySelector(`button[action="plus"]`)
+  const buttonMinus = elShifter.querySelector(`button[action="minus"]`)
   const closeBtn = elShifter.querySelector(`.cl-btn-4`)
 
   elInputText.addEventListener('input', onInputShifterInput)
@@ -84,16 +83,16 @@ function renderShifter(ctrl, value, maximum, qty) {
   elCoinsQty.innerHTML = qty.toFixed(5)
 }
 
+function renderBottomPaveRevome(ctrl) {
+  const shifter = document.querySelector(`.shifter[ctrl="${ctrl}"]`)
+  shifter.remove()
+}
+
 function renderBottomPave(ctrl) {
   const parentCont = document.querySelector('.bottom')
   const beforeEl = document.querySelector('.addnew')
   const newShifter = generateShifter(ctrl)
   parentCont.insertBefore(newShifter, beforeEl)
-}
-
-function renderBottomPaveRevome(ctrl) {
-  const shifter = document.querySelector(`.shifter[ctrl="${ctrl}"]`)
-  shifter.remove()
 }
 
 function renderDataList(availaibleCoins) {

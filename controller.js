@@ -1,10 +1,10 @@
+const controller = {}
+
 function handleChangeValue(val, ctrl) {
   val = Math.abs(parseInt(val)) || 0
   model.setValue(val, ctrl)
   handleUpdate()
 }
-
-// перенести логику сет тотал в модель
 
 function handleInputSetTotalInput(val) {
   val = Math.abs(parseInt(val)) || 0
@@ -42,8 +42,8 @@ async function handleNewShifter(ctrl) {
 
 function handleCloseBtn(ctrl) {
   model.deleteObj(ctrl)
-  handleUpdate()
   renderBottomPaveRevome(ctrl)
+  handleUpdate()
 }
 
 function handlePlusMinusVal(ctrl, action) {
@@ -55,7 +55,8 @@ function handlePlusMinusVal(ctrl, action) {
   handleUpdate()
 }
 
-function handleDataListAvailaibleCoins() {
+async function handleDataListAvailaibleCoins() {
+  await model.updateAllCoins()
   const availaibleCoins = model.getAvailaibleCoins()
   renderDataList(availaibleCoins)
 }

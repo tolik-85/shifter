@@ -65,7 +65,6 @@ const model = {
     }
     this.setValueToZeroForAllCoins()
     this.updateAllPrices()
-    this.updateAllCoins().then(() => handleDataListAvailaibleCoins())
   },
 
   setPrice(ctrl, price) {
