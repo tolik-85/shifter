@@ -230,6 +230,10 @@ html {
   border-radius: 10px;
   cursor: pointer;
 }
+.no-course{
+  font-size: 16px;
+  font-weight: bold;
+}
 
 .img {
   width: 20px;

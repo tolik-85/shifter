@@ -1,61 +1,69 @@
-function handleChangeValue(val, ctrl) {
-  val = Math.abs(parseInt(val)) || 0
-  model.setValue(val, ctrl)
-  handleUpdate()
-}
+const controller = {
+  handleChangeValue(val, ctrl) {
+    val = Math.abs(parseInt(val)) || 0
+    model.setValue(val, ctrl)
+    this.handleUpdate()
+  },
 
-// перенести логику сет тотал в модель
+  handleInputSetTotalInput(val) {
+    val = Math.abs(parseInt(val)) || 0
+    view.renderSetTotalInput(val)
+  },
 
-function handleInputSetTotalInput(val) {
-  val = Math.abs(parseInt(val)) || 0
-  renderSetTotalInput(val)
-}
+  handleButtonSetTotal(val) {
+    model.setTotal(+val)
+    this.handleUpdate()
+  },
 
-function handleButtonSetTotal(val) {
-  model.setTotal(+val)
-  handleUpdate()
-}
-
-function handleUpdate() {
-  for (const key of model.getAddedCoins()) {
-    renderShifter(
-      key,
-      model.getValByCtrl(key),
-      model.getMaxByCtrl(key),
-      model.calcCoinsQantity(key)
-    )
-  }
-}
-
-async function handleNewShifter(ctrl) {
-  if (Object.keys(model.coins).includes(ctrl)) {
-    document.querySelector('#newshifter-add').value = ''
-  } else {
-    let isCorrect = await model.beforeAddObj(ctrl)
-    if (isCorrect) {
-      renderBottomPave(ctrl)
-      handleUpdate()
-      document.querySelector('#newshifter-add').value = ''
+  handleUpdate() {
+    for (const key of model.getAddedCoins()) {
+      view.renderShifter(
+        key,
+        model.getValByCtrl(key),
+        model.getMaxByCtrl(key),
+        model.calcCoinsQantity(key)
+      )
     }
-  }
-}
+  },
 
-function handleCloseBtn(ctrl) {
-  model.deleteObj(ctrl)
-  handleUpdate()
-  renderBottomPaveRevome(ctrl)
-}
+  async handleNewShifter(ctrl) {
+    if (Object.keys(model.coins).includes(ctrl)) {
+      document.querySelector('#newshifter-add').value = ''
+      view.renderElAddNewNoExchangeRemove()
+      view.renderAddNewElCoinInListAdd(ctrl)
+    } else {
+      let isCorrect = await model.beforeAddObj(ctrl)
+      if (isCorrect) {
+        view.renderBottomPave(ctrl)
+        this.handleUpdate()
+        document.querySelector('#newshifter-add').value = ''
+        view.renderElAddNewNoExchangeRemove()
+        view.renderAddNewElCoinInListRemove()
+      } else {
+        view.renderAddNewElCoinInListRemove()
+        view.renderAddNewElNoExchangeAdd(ctrl)
+        document.querySelector('#newshifter-add').value = ''
+      }
+    }
+  },
 
-function handlePlusMinusVal(ctrl, action) {
-  if (action === 'plus') {
-    model.incrementVal(ctrl)
-  } else {
-    model.decrementVal(ctrl)
-  }
-  handleUpdate()
-}
+  handleCloseBtn(ctrl) {
+    model.deleteObj(ctrl)
+    this.handleUpdate()
+    view.renderBottomPaveRevome(ctrl)
+  },
 
-function handleDataListAvailaibleCoins() {
-  const availaibleCoins = model.getAvailaibleCoins()
-  renderDataList(availaibleCoins)
+  handlePlusMinusVal(ctrl, action) {
+    if (action === 'plus') {
+      model.incrementVal(ctrl)
+    } else {
+      model.decrementVal(ctrl)
+    }
+    this.handleUpdate()
+  },
+
+  handleDataListAvailaibleCoins() {
+    const availaibleCoins = model.getAvailaibleCoins()
+    view.renderDataList(availaibleCoins)
+  },
 }

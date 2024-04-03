@@ -65,7 +65,7 @@ const model = {
     }
     this.setValueToZeroForAllCoins()
     this.updateAllPrices()
-    this.updateAllCoins().then(() => handleDataListAvailaibleCoins())
+    this.updateAllCoins().then(() => controller.handleDataListAvailaibleCoins())
   },
 
   setPrice(ctrl, price) {
@@ -80,6 +80,7 @@ const model = {
     this.coins[ctrl].val = this.checkVal(val, ctrl)
     this.calcMax()
   },
+
   setValueToZeroForAllCoins() {
     for (const ctrl in this.coins) {
       this.setValue(0, ctrl)
