@@ -18,46 +18,90 @@ function h(tagName, attrs, text, childrens, listener) {
   return el
 }
 
-const elShifter = h('div', { class: 'shifter', ctrl: `${ctrl}` }, '', [
-  h('div', { class: 'cl-btn-4' }, '', []),
-  h(
-    'label',
-    { for: 'edit' + `${ctrl}` },
-    'USD to ' + `${ctrl}`.toUpperCase(),
-    []
-  ),
-  h('progress', { ctrl: `${ctrl}`, max: 0, value: 0 }, '', []),
-  h('div', { class: 'row' }, '', [
-    h('button', { ctrl: `${ctrl}`, action: 'minus' }, '&lt;', []),
+function generateElShifter(ctrl) {
+  const elShifter = h('div', { class: 'shifter', ctrl: `${ctrl}` }, '', [
+    h('div', { class: 'cl-btn-4' }, '', []),
+    h(
+      'label',
+      { for: 'edit' + `${ctrl}` },
+      'USD to ' + `${ctrl}`.toUpperCase(),
+      []
+    ),
+    h('progress', { ctrl: `${ctrl}`, max: 0, value: 0 }, '', []),
+    h('div', { class: 'row' }, '', [
+      h('button', { ctrl: `${ctrl}`, action: 'minus' }, '&lt;', []),
+      h(
+        'input',
+        {
+          type: 'text',
+          ctrl: `${ctrl}`,
+          name: 'edit-' + `${ctrl}`,
+          id: 'edit-' + `${ctrl}`,
+        },
+        '',
+        []
+      ),
+      h('button', { ctrl: `${ctrl}`, action: 'plus' }, '&gt;', []),
+    ]),
+    h('progress', { ctrl: `${ctrl}`, max: 0, value: 0 }, '', []),
     h(
       'input',
       {
-        type: 'text',
+        type: 'range',
         ctrl: `${ctrl}`,
-        name: 'edit-' + `${ctrl}`,
-        id: 'edit-' + `${ctrl}`,
+        name: `${ctrl}`,
+        min: 0,
+        max: 0,
+        value: 0,
       },
       '',
       []
     ),
-    h('button', { ctrl: `${ctrl}`, action: 'plus' }, '&gt;', []),
-  ]),
-  h('progress', { ctrl: `${ctrl}`, max: 0, value: 0 }, '', []),
-  h(
-    'input',
-    {
-      type: 'range',
-      ctrl: `${ctrl}`,
-      name: `${ctrl}`,
-      min: 0,
-      max: 0,
-      value: 0,
-    },
-    '',
-    []
-  ),
-  h('div', { class: 'price' }, '', [h('span', { ctrl: `${ctrl}` }, '', [])]),
-])
+    h('div', { class: 'price' }, '', [h('span', { ctrl: `${ctrl}` }, '', [])]),
+  ])
+  return elShifter
+}
+
+// const elShifter = h('div', { class: 'shifter', ctrl: `${ctrl}` }, '', [
+//   h('div', { class: 'cl-btn-4' }, '', []),
+//   h(
+//     'label',
+//     { for: 'edit' + `${ctrl}` },
+//     'USD to ' + `${ctrl}`.toUpperCase(),
+//     []
+//   ),
+//   h('progress', { ctrl: `${ctrl}`, max: 0, value: 0 }, '', []),
+//   h('div', { class: 'row' }, '', [
+//     h('button', { ctrl: `${ctrl}`, action: 'minus' }, '&lt;', []),
+//     h(
+//       'input',
+//       {
+//         type: 'text',
+//         ctrl: `${ctrl}`,
+//         name: 'edit-' + `${ctrl}`,
+//         id: 'edit-' + `${ctrl}`,
+//       },
+//       '',
+//       []
+//     ),
+//     h('button', { ctrl: `${ctrl}`, action: 'plus' }, '&gt;', []),
+//   ]),
+//   h('progress', { ctrl: `${ctrl}`, max: 0, value: 0 }, '', []),
+//   h(
+//     'input',
+//     {
+//       type: 'range',
+//       ctrl: `${ctrl}`,
+//       name: `${ctrl}`,
+//       min: 0,
+//       max: 0,
+//       value: 0,
+//     },
+//     '',
+//     []
+//   ),
+//   h('div', { class: 'price' }, '', [h('span', { ctrl: `${ctrl}` }, '', [])]),
+// ])
 
 // const elH1 = h('h1', { class: 'orange' }, '', [
 //   h('span', { class: 'blue' }, 'foobar'),

@@ -124,63 +124,109 @@ const view = {
   },
 
   generateShifter(ctrl) {
-    const elShifter = document.createElement('div')
-    const closeBtn = document.createElement('div')
-    const label = document.createElement('label')
-    const progress = document.createElement('progress')
-    const row = document.createElement('div')
-    const buttonMinus = document.createElement('button')
-    const buttonPlus = document.createElement('button')
-    const inputText = document.createElement('input')
-    const progress2 = document.createElement('progress')
-    const inputRange = document.createElement('input')
-    const price = document.createElement('div')
-    const span = document.createElement('span')
-
-    elShifter.classList.add('shifter')
-    elShifter.setAttribute('ctrl', ctrl)
-    closeBtn.classList.add('cl-btn-4')
-    label.setAttribute('for', `edit-` + ctrl)
-    label.innerHTML = 'USD to ' + ctrl.toUpperCase()
-    progress.setAttribute('ctrl', ctrl)
-    progress.setAttribute('max', 0)
-    progress.setAttribute('value', 0)
-    row.classList.add('row')
-    buttonMinus.setAttribute('ctrl', ctrl)
-    buttonMinus.setAttribute('action', 'minus')
-    buttonMinus.innerHTML = '&lt;'
-    buttonPlus.setAttribute('ctrl', ctrl)
-    buttonPlus.setAttribute('action', 'plus')
-    buttonPlus.innerHTML = '&gt;'
-    inputText.setAttribute('type', 'text')
-    inputText.setAttribute('ctrl', ctrl)
-    inputText.setAttribute('name', `edit-` + ctrl)
-    inputText.setAttribute('id', `edit-` + ctrl)
-    progress2.setAttribute('ctrl', ctrl)
-    progress2.setAttribute('max', 0)
-    progress2.setAttribute('value', 0)
-    inputRange.setAttribute('type', 'range')
-    inputRange.setAttribute('ctrl', ctrl)
-    inputRange.setAttribute('name', ctrl)
-    inputRange.setAttribute('min', 0)
-    inputRange.setAttribute('max', 0)
-    inputRange.setAttribute('value', 0)
-    price.classList.add('price')
-    span.setAttribute('ctrl', ctrl)
-    elShifter.appendChild(closeBtn)
-    elShifter.appendChild(label)
-    elShifter.appendChild(progress)
-    row.appendChild(buttonMinus)
-    row.appendChild(inputText)
-    row.appendChild(buttonPlus)
-    price.appendChild(span)
-    elShifter.appendChild(row)
-    elShifter.appendChild(progress2)
-    elShifter.appendChild(inputRange)
-    elShifter.appendChild(price)
-
+    const elShifter = h('div', { class: 'shifter', ctrl: `${ctrl}` }, '', [
+      h('div', { class: 'cl-btn-4' }, '', []),
+      h(
+        'label',
+        { for: 'edit' + `${ctrl}` },
+        'USD to ' + `${ctrl}`.toUpperCase(),
+        []
+      ),
+      h('progress', { ctrl: `${ctrl}`, max: 0, value: 0 }, '', []),
+      h('div', { class: 'row' }, '', [
+        h('button', { ctrl: `${ctrl}`, action: 'minus' }, '<', []),
+        h(
+          'input',
+          {
+            type: 'text',
+            ctrl: `${ctrl}`,
+            name: 'edit-' + `${ctrl}`,
+            id: 'edit-' + `${ctrl}`,
+          },
+          '',
+          []
+        ),
+        h('button', { ctrl: `${ctrl}`, action: 'plus' }, '>', []),
+      ]),
+      h('progress', { ctrl: `${ctrl}`, max: 0, value: 0 }, '', []),
+      h(
+        'input',
+        {
+          type: 'range',
+          ctrl: `${ctrl}`,
+          name: `${ctrl}`,
+          min: 0,
+          max: 0,
+          value: 0,
+        },
+        '',
+        []
+      ),
+      h('div', { class: 'price' }, '', [
+        h('span', { ctrl: `${ctrl}` }, '', []),
+      ]),
+    ])
     return elShifter
   },
+
+  // generateShifter(ctrl) {
+  //   const elShifter = document.createElement('div')
+  //   const closeBtn = document.createElement('div')
+  //   const label = document.createElement('label')
+  //   const progress = document.createElement('progress')
+  //   const row = document.createElement('div')
+  //   const buttonMinus = document.createElement('button')
+  //   const buttonPlus = document.createElement('button')
+  //   const inputText = document.createElement('input')
+  //   const progress2 = document.createElement('progress')
+  //   const inputRange = document.createElement('input')
+  //   const price = document.createElement('div')
+  //   const span = document.createElement('span')
+
+  //   elShifter.classList.add('shifter')
+  //   elShifter.setAttribute('ctrl', ctrl)
+  //   closeBtn.classList.add('cl-btn-4')
+  //   label.setAttribute('for', `edit-` + ctrl)
+  //   label.innerHTML = 'USD to ' + ctrl.toUpperCase()
+  //   progress.setAttribute('ctrl', ctrl)
+  //   progress.setAttribute('max', 0)
+  //   progress.setAttribute('value', 0)
+  //   row.classList.add('row')
+  //   buttonMinus.setAttribute('ctrl', ctrl)
+  //   buttonMinus.setAttribute('action', 'minus')
+  //   buttonMinus.innerHTML = '&lt;'
+  //   buttonPlus.setAttribute('ctrl', ctrl)
+  //   buttonPlus.setAttribute('action', 'plus')
+  //   buttonPlus.innerHTML = '&gt;'
+  //   inputText.setAttribute('type', 'text')
+  //   inputText.setAttribute('ctrl', ctrl)
+  //   inputText.setAttribute('name', `edit-` + ctrl)
+  //   inputText.setAttribute('id', `edit-` + ctrl)
+  //   progress2.setAttribute('ctrl', ctrl)
+  //   progress2.setAttribute('max', 0)
+  //   progress2.setAttribute('value', 0)
+  //   inputRange.setAttribute('type', 'range')
+  //   inputRange.setAttribute('ctrl', ctrl)
+  //   inputRange.setAttribute('name', ctrl)
+  //   inputRange.setAttribute('min', 0)
+  //   inputRange.setAttribute('max', 0)
+  //   inputRange.setAttribute('value', 0)
+  //   price.classList.add('price')
+  //   span.setAttribute('ctrl', ctrl)
+  //   elShifter.appendChild(closeBtn)
+  //   elShifter.appendChild(label)
+  //   elShifter.appendChild(progress)
+  //   row.appendChild(buttonMinus)
+  //   row.appendChild(inputText)
+  //   row.appendChild(buttonPlus)
+  //   price.appendChild(span)
+  //   elShifter.appendChild(row)
+  //   elShifter.appendChild(progress2)
+  //   elShifter.appendChild(inputRange)
+  //   elShifter.appendChild(price)
+
+  //   return elShifter
+  // },
 
   renderFieldTextMaxValue() {
     const elLabel = document.querySelector('.field_text>label')
